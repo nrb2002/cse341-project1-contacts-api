@@ -9,8 +9,8 @@ const PORT = process.env.PORT || 3000;
 
 //Import routes
 const router = require('./routes');
-const contactsRoutes = require('./routes/contactsRoutes');
-const swaggerRoutes = require('./routes/swaggerRoutes');
+const contactsRoutes = require('./routes/contacts.routes');
+const swaggerRoutes = require('./routes/swagger.routes');
 
 //Get database info
 const { connectDB } = require('./db/mongo'); 

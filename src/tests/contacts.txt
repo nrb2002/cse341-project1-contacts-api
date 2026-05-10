@@ -1,0 +1,42 @@
+{
+  "firstName": "Ruchelle",
+  "lastName": "Mambassa",
+  "email": "ruche@gmail.com",
+  "favoriteColor": "Beige",
+  "birthday": "Aug 1"
+},
+{
+  "firstName": "David",
+  "lastName": "Copperfield",
+  "email": "david@gmail.com",
+  "favoriteColor": "Blue",
+  "birthday": "July 4"
+},
+{
+  "firstName": "John",
+  "lastName": "Allred",
+  "email": "john@live.com",
+  "favoriteColor": "Gray",
+  "birthday": "Jan 16"
+},
+{
+  "firstName": "Kimpa",
+  "lastName": "Vita",
+  "email": "kimpa@yahoo.com",
+  "favoriteColor": "Green",
+  "birthday": "Jan 16"
+},
+{
+  "firstName": "Marvin",
+  "lastName": "Gay",
+  "email": "marvin@yhoo.com",
+  "favoriteColor": "White",
+  "birthday": "Jan 30"
+},
+{
+  "firstName": "Michael",
+  "lastName": "Jackson",
+  "email": "mike@mike.com",
+  "favoriteColor": "Gold",
+  "birthday": "Jul 4"
+}
