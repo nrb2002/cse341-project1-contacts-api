@@ -45,9 +45,9 @@ async function getAllContacts(req, res) {
     const collection = getCollection();
     const contacts = await collection.find({}).toArray();
 
-    // if (contacts.length === 0) {
-    //   return res.status(404).json({ message: "No contacts found" });
-    // }
+    //#swagger.tags=[if (contacts.length === 0) { ]
+    //#swagger.tags=[   return res.status(404).json({ message: "No contacts found" }); ]
+    //#swagger.tags=[ } ]
 
     res.status(200).json(contacts);
   } catch (error) {
