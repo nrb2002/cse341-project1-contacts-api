@@ -1,6 +1,27 @@
-// const { response } = require("express");
-const { getCollection } = require("../db/mongo");
-const { ObjectId } = require("mongodb");
+const service = require("../services/contacts.service");
+
+
+//Get all contacts
+async function getAllContacts(req, res) {
+  //#swagger.tags=["Contacts CRUD Operations"]
+  //#swagger.summary="Get All Contacts"
+  //#swagger.description="Pull all contacts from the database. "
+  try {
+    const contacts = await service.getAllContacts();
+
+    //#swagger.tags=[if (contacts.length === 0) { ]
+    //#swagger.tags=[   return res.status(404).json({ message: "No contacts found" }); ]
+    //#swagger.tags=[ } ]
+
+    //Return the contacts
+    res.status(200).json(contacts);
+
+    //Note: The error handling for database connection issues is done in the service layer, so we catch it here and return a 500 status with a message.
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+}
+
 
 /**
  * GET single contact by id (query param)
@@ -17,41 +38,21 @@ async function getContactById(req, res) {
         type: 'string'
   } */
   try {
-    const { id } = req.params;
-
+    const contact = await service.getContactById(req.params.id);
+    //Check if id is provided
     if (!id) {
       return res.status(400).json({ message: "Contact id is required" });
     }
-
-    const collection = getCollection();
-    const contact = await collection.findOne({ _id: new ObjectId(id) });
-
+    //Check if contact exists
     if (!contact) {
       return res.status(404).json({ message: "Contact not found" });
     }
-
+    //Return the contact
     res.status(200).json(contact);
+
+    //Note: The error handling for invalid ObjectId format is done in the service layer, so we catch it here and return a 500 status with a message.
   } catch (error) {
     res.status(500).json({ error: "Invalid id format" });
-  }
-}
-
-//Get all contacts
-async function getAllContacts(req, res) {
-  //#swagger.tags=["Contacts CRUD Operations"]
-  //#swagger.summary="Get All Contacts"
-  //#swagger.description="Pull all contacts from the database. "
-  try {
-    const collection = getCollection();
-    const contacts = await collection.find({}).toArray();
-
-    //#swagger.tags=[if (contacts.length === 0) { ]
-    //#swagger.tags=[   return res.status(404).json({ message: "No contacts found" }); ]
-    //#swagger.tags=[ } ]
-
-    res.status(200).json(contacts);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
   }
 }
 
@@ -73,19 +74,17 @@ async function createContact(req, res){
     }
   } */
   try {
-    const collection = getCollection();
-    const newContact = req.body;
-
+    const newContact = await service.createContact(req.body);
+    //Check if data is provided
     if (!newContact || Object.keys(newContact).length === 0) {
       return res.status(400).json({ message: "Contact data is required" });
     }
-
-    const result = await collection.insertOne(newContact);
-
+    //Return the id of the newly created contact
     res.status(201).json({
       message: "Contact created successfully",
       id: result.insertedId
     });
+    //Note: The error handling for invalid data format is done in the service layer, so we catch it here and return a 500 status with a message.
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -118,33 +117,26 @@ async function updateContact(req, res){
     }
 } */
   try {
-    const { id } = req.params;
-    const updatedData = req.body;
+    const updatedData = await service.updateContact(req.params.id, req.body);
 
+    //Check if id is provided
     if (!id) {
       return res.status(400).json({ message: "Contact id is required" });
     }
-    //Make the data to update
+    //Check if update data is provided
     if (!updatedData || Object.keys(updatedData).length === 0) {
       return res.status(400).json({ message: "Update data is required" });
     }
-    
-    const collection = getCollection();
 
     console.log("ID received: ", id) //For testing purposes
-    
-    delete updatedData._id; //prevent _id overwrite
-
-    const result = await collection.updateOne(
-      { _id: new ObjectId(id) },
-      { $set: updatedData }
-    );
-
+    //Check if contact exists and was updated
     if (result.matchedCount === 0) {
       return res.status(404).json({ message: "Contact not found" });
     }
-
+    //Return success message
     res.status(200).json({ message: "Contact updated successfully" });
+
+    //Note: The error handling for invalid ObjectId format is done in the service layer, so we catch it here and return a 500 status with a message.
   } catch (error) {
     res.status(500).json({ error: "Invalid id format" });
   }
@@ -162,22 +154,16 @@ async function deleteContact(req, res){
         type: 'string'
   } */
   try {
-    const { id } = req.params;
-
+    const result = await service.deleteContact(req.params.id);
+    //Check if id is provided
     if (!id) {
       return res.status(400).json({ message: "Contact id is required" });
     }
-
-    const collection = getCollection();
-
-    const result = await collection.deleteOne({
-      _id: new ObjectId(id)
-    });
-
+    //Check if contact exists and was deleted
     if (result.deletedCount === 0) {
       return res.status(404).json({ message: "Contact not found" });
     }
-
+    //Return success message
     res.status(200).json({ message: "Contact deleted successfully" });
   } catch (error) {
     res.status(500).json({ error: "Invalid id format" });

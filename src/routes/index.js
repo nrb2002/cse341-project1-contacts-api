@@ -5,7 +5,7 @@ const router = require('express').Router();
 
 router.get('/', (req,res) => {
     //#swagger.tags=['Home Page']
-    res.send('Welcome to Project 1!');
+    res.send('Welcome to our Contacts API!');
 });
 
 module.exports = router;

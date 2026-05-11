@@ -1,22 +1,28 @@
+//Import dependencies
 require('dotenv').config();
+const app = require('./app');
 
-const express = require('express');
-const app = express();
+//Import database connection function
+const { connectDB } = require('./config/db');
+//Set up server port
+const PORT = process.env.PORT || 8080;
 
-const cors = require('cors');
+const startServer = async () => {
+  try {
+    await connectDB();
+    console.log('MongoDB connected, starting server...'); //For testing 
 
-const PORT = process.env.PORT || 3000;
+    app.listen(PORT, () => {
+      console.log(`Server running at port: ${PORT}`);
+    } );
+  } catch (err) {
+    console.error('Failed to connect to MongoDB:', err);
+  }
+};
 
-//Import routes
-const router = require('./routes');
-const contactsRoutes = require('./routes/contacts.routes');
-const swaggerRoutes = require('./routes/swagger.routes');
+startServer();
 
-//Get database info
-const { connectDB } = require('./db/mongo'); 
 
-app.use(cors()); //controls origin access
-app.use(express.json());
 
 
 //Make api work accross sites -- this is handled by cors
@@ -30,18 +36,7 @@ app.use(express.json());
 //   next();  
 // });
 
-app.use('/', router); //Get default route
-app.use('/contacts', contactsRoutes); //Get Contacts route
-app.use('/api-docs', swaggerRoutes); //Get API documentation's route
 
-//Connect to database
-connectDB().then(() => {
-  console.log('MongoDB connected, starting server...'); //For testing
 
-  app.listen(PORT, () => {
-    console.log(`Server running at port: ${PORT}`);
-  });
-}).catch(err => {
-  console.error('Failed to connect to MongoDB:', err);
-});
+
 
