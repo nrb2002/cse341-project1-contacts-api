@@ -12,6 +12,8 @@ const getAllContacts = async () => {
 const getContactById = async (id) => {
   return await getCollection("contacts")
     .findOne({ _id: new ObjectId(id) });
+
+  console.log("ID received: ", id); //For testing
 };
 
 // Create contact
