@@ -40,7 +40,7 @@ async function getContactById(req, res) {
   try {
     const contact = await service.getContactById(req.params.id);
     //Check if id is provided
-    if (!id) {
+    if (!req.params.id) {
       return res.status(400).json({ message: "Contact id is required" });
     }
     //Check if contact exists
