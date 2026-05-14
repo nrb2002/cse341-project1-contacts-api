@@ -21,8 +21,6 @@ async function getAllContacts(req, res) {
     res.status(500).json({ error: error.message });
   }
 }
-
-
 /**
  * GET single contact by id (query param)
  * Example: /contacts?id=65abc123...
