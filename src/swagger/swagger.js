@@ -14,12 +14,12 @@ const doc = {
      */
 
     //For production
-    // host: process.env.NODE_ENV === 'production' ? 'https://cse341-project1-contacts-api.onrender.com/api-docs/' : 'localhost:8080',
-    // schemes: process.env.NODE_ENV === 'production' ? ['https'] : ['http']
+    host: process.env.NODE_ENV === 'production' ? 'https://cse341-project1-contacts-api.onrender.com/api-docs/' : 'localhost:8080',
+    schemes: process.env.NODE_ENV === 'production' ? ['https'] : ['http']
 
     //For local testing
-    host: 'localhost:8080',
-    schemes: ['http']
+    // host: 'localhost:8080',
+    // schemes: ['http']
 };
 
 const outputFile = './swagger.json';
