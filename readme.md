@@ -19,3 +19,12 @@ Node project successfully connects to MongoDB.
 API routes perform GET, POST, PUT, and DELETE requests that are fully functional.
 API Documentation using Swagger is professional, comprehensive, relevant, and accurate.
 API is published to Render and can be called from external sources.
+
+# Install necessary tools
+
+## Install dependencies
+npm install express mongodb mongoose dotenv swagger-ui-express swagger-autogen cors
+
+## Install Developement dependy
+
+npm install --save-dev nodemon

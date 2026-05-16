@@ -1,21 +1,21 @@
-//Import dependencies
-const express = require('express'); //For building the server with Express.js framework
-const cors = require('cors'); //For cross-origin resource sharing
+const express = require('express');
+const cors = require('cors');
 
-//Import routes
+const defaultRoute = require('./routes/index');
 const contactsRoutes = require('./routes/contacts.routes');
 const swaggerRoutes = require('./routes/swagger.routes');
-const router = require('./routes/');
 
-//Set up server
 const app = express();
 
+// Middleware
 app.use(cors());
 app.use(express.json());
 
-//Use routes
-app.use('/', router); //Get default route
-app.use('/contacts', contactsRoutes); //Get Contacts route
-app.use('/api-docs', swaggerRoutes); //Get API documentation's route
+// Routes
+app.use('/contacts', contactsRoutes);
+app.use('/api-docs', swaggerRoutes);
+
+// Default route
+app.use('/', defaultRoute);
 
 module.exports = app;

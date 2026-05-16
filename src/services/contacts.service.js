@@ -1,48 +1,37 @@
-const { ObjectId } = require("mongodb");
-const { getCollection } = require("../config/db");
+const Contact = require("../models/contacts.model");
 
 // Get all contacts
 const getAllContacts = async () => {
-  return await getCollection("contacts")
-    .find({})
-    .toArray();
+
+  return await Contact.find();
 };
 
 // Get single contact
 const getContactById = async (id) => {
-  return await getCollection("contacts")
-    .findOne({ _id: new ObjectId(id) });
 
-  console.log("ID received: ", id); //For testing
+  return await Contact.findById(id);
 };
 
 // Create contact
 const createContact = async (contactData) => {
-  const result = await getCollection("contacts")
-    .insertOne(contactData);
 
-  return result.insertedId;
+  return await Contact.create(contactData);
 };
 
 // Update contact
 const updateContact = async (id, updatedData) => {
-  delete updatedData._id;
 
-  const result = await getCollection("contacts")
-    .updateOne(
-      { _id: new ObjectId(id) },
-      { $set: updatedData }
-    );
-
-  return result.modifiedCount > 0;
+  return await Contact.findByIdAndUpdate(
+    id,
+    updatedData,
+    { new: true }
+  );
 };
 
 // Delete contact
 const deleteContact = async (id) => {
-  const result = await getCollection("contacts")
-    .deleteOne({ _id: new ObjectId(id) });
 
-  return result.deletedCount > 0;
+  return await Contact.findByIdAndDelete(id);
 };
 
 module.exports = {
