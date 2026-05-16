@@ -10,10 +10,22 @@
   "host": "localhost:8080",
   "basePath": "/",
   "schemes": [
-    "http",
-    "https"
+    "http"
   ],
   "paths": {
+    "/": {
+      "get": {
+        "tags": [
+          "Home Page"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/contacts/": {
       "get": {
         "tags": [
@@ -186,19 +198,6 @@
           },
           "500": {
             "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/": {
-      "get": {
-        "tags": [
-          "Home Page"
-        ],
-        "description": "",
-        "responses": {
-          "200": {
-            "description": "OK"
           }
         }
       }

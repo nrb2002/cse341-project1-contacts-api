@@ -11,11 +11,13 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Routes
+// Default route
+app.use('/', defaultRoute);
+
+// Other routes
 app.use('/contacts', contactsRoutes);
 app.use('/api-docs', swaggerRoutes);
 
-// Default route
-app.use('/', defaultRoute);
+
 
 module.exports = app;
