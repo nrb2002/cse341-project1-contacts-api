@@ -14,11 +14,9 @@ const getAllContacts = async (req, res) => {
 
     //Return the contacts
     res.status(200).json(contacts);
-
   } catch (error) {
-
     res.status(500).json({
-      message: error.message
+      message: error.message,
     });
   }
 };
@@ -35,28 +33,25 @@ const getContactById = async (req, res) => {
         type: 'string'
   } */
   try {
-
     const contact = await contactsService.getContactById(req.params.id);
 
     if (!contact) {
       return res.status(404).json({
-        message: "Contact not found!"
+        message: "Contact not found!",
       });
     }
 
     res.status(200).json(contact);
-
   } catch (error) {
-
     res.status(500).json({
-      message: error.message
+      message: error.message,
     });
   }
 };
 
 // CREATE contact
 const createContact = async (req, res) => {
-   //#swagger.tags=["Contacts CRUD Operations"]
+  //#swagger.tags=["Contacts CRUD Operations"]
   //#swagger.summary="Create New Contact"
   //#swagger.description="Insert new contact in the database. "
   /* #swagger.parameters["body"] = {
@@ -72,16 +67,12 @@ const createContact = async (req, res) => {
     }
   } */
   try {
-
-    const newContact =
-      await contactsService.createContact(req.body);
+    const newContact = await contactsService.createContact(req.body);
 
     res.status(201).json(newContact);
-
   } catch (error) {
-
     res.status(500).json({
-      message: error.message
+      message: error.message,
     });
   }
 };
@@ -98,7 +89,7 @@ const updateContact = async (req, res) => {
         required: true,
         type: 'string'
   } */
-      
+
   /* #swagger.parameters["body"] = {
     in: "body",
     description: "Updated contact fields",
@@ -112,19 +103,15 @@ const updateContact = async (req, res) => {
     }
 } */
   try {
-
-    const updatedContact =
-      await contactsService.updateContact(
-        req.params.id,
-        req.body
-      );
+    const updatedContact = await contactsService.updateContact(
+      req.params.id,
+      req.body,
+    );
 
     res.status(200).json(updatedContact);
-
   } catch (error) {
-
     res.status(500).json({
-      message: error.message
+      message: error.message,
     });
   }
 };
@@ -141,17 +128,14 @@ const deleteContact = async (req, res) => {
         type: 'string'
   } */
   try {
-
     await contactsService.deleteContact(req.params.id);
 
     res.status(200).json({
-      message: "Contact deleted successfully!"
+      message: "Contact deleted successfully!",
     });
-
   } catch (error) {
-
     res.status(500).json({
-      message: error.message
+      message: error.message,
     });
   }
 };
@@ -161,5 +145,5 @@ module.exports = {
   getContactById,
   createContact,
   updateContact,
-  deleteContact
+  deleteContact,
 };

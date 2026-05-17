@@ -3,12 +3,12 @@ const express = require("express");
 const router = express.Router();
 
 //Import controller functions
-const { 
-    getContactById, 
-    getAllContacts,
-    createContact,
-    updateContact,
-    deleteContact 
+const {
+  getContactById,
+  getAllContacts,
+  createContact,
+  updateContact,
+  deleteContact,
 } = require("../controllers/contacts.controller");
 
 //Build each contact route
@@ -25,6 +25,5 @@ router.put("/:id", updateContact);
 
 //Delete Contact route
 router.delete("/:id", deleteContact);
-
 
 module.exports = router;

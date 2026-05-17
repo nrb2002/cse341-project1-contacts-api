@@ -1,8 +1,8 @@
-require('dotenv').config();
+require("dotenv").config();
 
-const app = require('./app');
+const app = require("./app");
 
-const connectDB = require('./config/db');
+const connectDB = require("./config/db");
 
 const PORT = process.env.PORT || 8080;
 
@@ -11,23 +11,15 @@ const startServer = async () => {
     // Connect to MongoDB
     await connectDB();
 
-    console.log('Starting server...');
-    
+    console.log("Starting server...");
+
     // Start Express server
     app.listen(PORT, () => {
       console.log(`Server running on port ${PORT}.`);
     });
-
-    
-
-    
-
   } catch (error) {
-
-    console.error('Server startup failed:', error.message);
+    console.error("Server startup failed:", error.message);
   }
-
-  
 };
 
 startServer();
