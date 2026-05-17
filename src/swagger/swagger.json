@@ -7,10 +7,9 @@
     "author": "Baron T.",
     "Last update": "2024-06-01"
   },
-  "host": "localhost:8080",
+  "host": "cse341-project1-contacts-api.onrender.com",
   "basePath": "/",
   "schemes": [
-    "http",
     "https"
   ],
   "paths": {
