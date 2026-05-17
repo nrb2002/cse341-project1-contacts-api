@@ -21,7 +21,7 @@ const doc = {
     process.env.NODE_ENV === "production"
       ? "cse341-project1-contacts-api.onrender.com"
       : "localhost:8080",
-  schemes: process.env.NODE_ENV === "production" ? ["https"] : ["http"],
+  schemes: ["https", "http"]
 
   //For local testing
   // host: 'localhost:8080',
